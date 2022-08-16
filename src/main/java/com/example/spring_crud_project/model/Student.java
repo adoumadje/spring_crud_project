@@ -1,5 +1,6 @@
 package com.example.spring_crud_project.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
@@ -11,13 +12,13 @@ public class Student {
     private final String firstname;
     @NotBlank
     private final String lastname;
-    @NotBlank @NotNull
+    @NotNull
     private final int grade;
 
-    public Student(UUID id,
-                   String firstname,
-                   String lastname,
-                   int grade) {
+    public Student(@JsonProperty("id") UUID id,
+                   @JsonProperty("firstname") String firstname,
+                   @JsonProperty("lastname") String lastname,
+                   @JsonProperty("grade") int grade) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;

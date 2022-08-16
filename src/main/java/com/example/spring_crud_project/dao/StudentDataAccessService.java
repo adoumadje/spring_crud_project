@@ -45,7 +45,8 @@ public class StudentDataAccessService implements StudentDao {
 
     @Override
     public Optional<Student> selectStudentById(UUID id) {
-        final String sql = "SELECT id, firstname, lastname, grade WHERE id = ?";
+        final String sql = "SELECT id, firstname, lastname, grade FROM student" +
+                " WHERE id = ?";
         Student student = jdbcTemplate.queryForObject(
                 sql,
                 new Object[]{id},
@@ -65,8 +66,9 @@ public class StudentDataAccessService implements StudentDao {
 
     @Override
     public List<Student> selectStudentsByLastName(String lastname) {
+
         final String sql = "SELECT id, firstname, lastname, grade FROM student" +
-                "WHERE lastname = ?";
+                " WHERE lastname = '"+ lastname+"'";
         return jdbcTemplate.query(sql, (resultSet, i) -> {
             UUID id = UUID.fromString(resultSet.getString("id"));
             String firstname = resultSet.getString("firstname");
@@ -89,8 +91,8 @@ public class StudentDataAccessService implements StudentDao {
     public int updateStudentById(UUID id, Student student) {
         return jdbcTemplate.update(
                 "UPDATE student" +
-                        "SET firstname = ?, lastname = ?, grade = ?" +
-                        "WHERE id = ?",
+                        " SET firstname = ?, lastname = ?, grade = ?" +
+                        " WHERE id = ?",
                 student.getFirstname(),
                 student.getLastname(),
                 student.getGrade(),

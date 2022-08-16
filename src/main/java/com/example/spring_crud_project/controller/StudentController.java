@@ -21,33 +21,33 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping
+    @PostMapping("/addstudent")
     public void addStudent(@Valid @NonNull @RequestBody Student student) {
         studentService.addStudent(student);
     }
 
-    @GetMapping
+    @GetMapping("/getallstudents")
     public List<Student> getAllStudents() {
         return studentService.getAllSTudents();
     }
 
-    @GetMapping(path = "{id}")
+    @GetMapping("/getbyId/{id}")
     public Student getStudentById(@PathVariable("id") UUID id) {
         return studentService.getStudentById(id)
                 .orElse(null);
     }
 
-    @GetMapping(path = "lastname?{lastname}")
+    @GetMapping(path = "/getbylastname/{lastname}")
     public List<Student> getStudentsByLastname(@PathVariable("lastname") String lastname) {
         return studentService.getStudentsByLastname(lastname);
     }
 
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping(path = "/deletestudent/{id}")
     public void deleteStudentById(@PathVariable("id") UUID id) {
         studentService.deleteStudent(id);
     }
 
-    @PutMapping(path = "{id}")
+    @PutMapping(path = "/updatestudent/{id}")
     public void updateStudent(@PathVariable("id") UUID id,
                               @Valid @NonNull @RequestBody Student newStudent) {
         studentService.updateStudent(id, newStudent);
